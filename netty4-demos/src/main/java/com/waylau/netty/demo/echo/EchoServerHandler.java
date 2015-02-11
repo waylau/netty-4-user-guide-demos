@@ -1,4 +1,4 @@
-package com.waylau.netty.echo;
+package com.waylau.netty.demo.echo;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;

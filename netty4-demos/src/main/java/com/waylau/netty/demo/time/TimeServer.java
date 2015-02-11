@@ -1,4 +1,4 @@
-package com.waylau.netty.echo;
+package com.waylau.netty.demo.time;
 
 import io.netty.bootstrap.ServerBootstrap;
 
@@ -11,13 +11,13 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 
 /**
- * 应答服务器
+ * 时间服务器
  */
-public class EchoServer {
+public class TimeServer {
 
     private int port;
 
-    public EchoServer(int port) {
+    public TimeServer(int port) {
         this.port = port;
     }
 
@@ -31,7 +31,7 @@ public class EchoServer {
              .childHandler(new ChannelInitializer<SocketChannel>() { // (4)
                  @Override
                  public void initChannel(SocketChannel ch) throws Exception {
-                     ch.pipeline().addLast(new EchoServerHandler());
+                     ch.pipeline().addLast(new TimeServerHandler());
                  }
              })
              .option(ChannelOption.SO_BACKLOG, 128)          // (5)
@@ -56,6 +56,6 @@ public class EchoServer {
         } else {
             port = 8080;
         }
-        new EchoServer(port).run();
+        new TimeServer(port).run();
     }
 }
