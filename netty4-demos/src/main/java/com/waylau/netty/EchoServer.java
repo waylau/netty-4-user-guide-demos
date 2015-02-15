@@ -8,10 +8,6 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
- 
-
 public class EchoServer {
 
 	private final int port;
