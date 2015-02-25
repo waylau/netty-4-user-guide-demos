@@ -12,15 +12,18 @@ public class SimpleChatServerHandler extends ChannelInboundHandlerAdapter { // (
 
     @Override
     public void channelRead(ChannelHandlerContext ctx, Object msg) { // (2)
-	    ByteBuf in = (ByteBuf) msg;
-	    try {
-	        while (in.isReadable()) { // (1)
-	            System.out.print((char) in.readByte());
-	            System.out.flush();
-	        }
-	    } finally {
-	        ReferenceCountUtil.release(msg); // (2)
-	    }
+//	    ByteBuf in = (ByteBuf) msg;
+//	    try {
+//	        while (in.isReadable()) { // (1)
+//	            System.out.print((char) in.readByte());
+//	            System.out.flush();
+//	        }
+//	    } finally {
+//	        ReferenceCountUtil.release(msg); // (2)
+//	    }
+	    String in  = (String)msg;
+	    System.out.println(in);
+	    
         
     }
     
