@@ -1,15 +1,14 @@
 package com.waylau.netty.demo.websocketchat;
 
+ 
+import com.github.netty.http.handler.HttpRequestHandler;
 
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
 import io.netty.channel.socket.SocketChannel;
-import io.netty.handler.codec.DelimiterBasedFrameDecoder;
-import io.netty.handler.codec.Delimiters;
 import io.netty.handler.codec.http.HttpObjectAggregator;
 import io.netty.handler.codec.http.HttpServerCodec;
-import io.netty.handler.codec.string.StringDecoder;
-import io.netty.handler.codec.string.StringEncoder;
+import io.netty.handler.codec.http.websocketx.WebSocketServerProtocolHandler;
 
 /**
  * 服务端 ChannelInitializer
@@ -26,8 +25,10 @@ public class WebsocketChatServerInitializer extends
 
         pipeline.addLast(new HttpServerCodec());
         pipeline.addLast(new HttpObjectAggregator(65536));
-        pipeline.addLast("handler", new WebsocketChatServerHandler());
- 
+        //pipeline.addLast("handler", new WebsocketChatServerHandler());
+		pipeline.addLast(new HttpRequestHandler("/ws"));
+		pipeline.addLast(new WebSocketServerProtocolHandler("/ws"));
+		pipeline.addLast(new TextWebSocketFrameHandler());
 		System.out.println("SimpleChatClient:"+ch.remoteAddress() +"连接上");
     }
 }
