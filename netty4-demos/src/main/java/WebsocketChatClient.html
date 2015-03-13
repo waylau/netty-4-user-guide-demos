@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>WebSocket Chat</title>
 </head>
 <body>
 	<script type="text/javascript">
@@ -25,7 +25,7 @@
 				ta.value = ta.value + "连接被关闭";
 			};
 		} else {
-			alert("你的浏览器不支持！");
+			alert("你的浏览器不支持 WebSocket！");
 		}
 
 		function send(message) {
@@ -40,12 +40,15 @@
 		}
 	</script>
 	<form onsubmit="return false;">
-		<input type="text" name="message" value="Hello, World!"><input
-			type="button" value="发送消息"
-			onclick="send(this.form.message.value)">
-		<h3>输出：</h3>
+		<h3>WebSocket 聊天室：</h3>
 		<textarea id="responseText" style="width: 500px; height: 300px;"></textarea>
-		<input type="button" onclick="javascript:document.getElementById('responseText').value=''" value="清空">
+		<br> 
+		<input type="text" name="message"  style="width: 300px" value="Welcome to www.waylau.com">
+		<input type="button" value="发送消息" onclick="send(this.form.message.value)">
+		<input type="button" onclick="javascript:document.getElementById('responseText').value=''" value="清空聊天记录">
 	</form>
+	<br> 
+	<br> 
+	<a href="http://www.waylau.com/" >更多例子请访问 www.waylau.com</a>
 </body>
 </html>

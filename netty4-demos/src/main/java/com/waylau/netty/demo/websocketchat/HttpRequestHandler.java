@@ -2,6 +2,7 @@ package com.waylau.netty.demo.websocketchat;
 
 import java.io.RandomAccessFile;
 
+import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandlerContext;
@@ -38,7 +39,8 @@ public class HttpRequestHandler extends SimpleChannelInboundHandler<FullHttpRequ
 				ctx.writeAndFlush(response);
 			}
 			
-			RandomAccessFile file = new RandomAccessFile(HttpRequestHandler.class.getResource("/").getPath()+"/index.html", "r");
+			RandomAccessFile file = new RandomAccessFile(HttpRequestHandler.class.getResource("/").getPath()+"/WebsocketChatClient.html", "r");
+ 
 			HttpResponse response = new DefaultHttpResponse(msg.getProtocolVersion(), HttpResponseStatus.OK);
 			response.headers().set(HttpHeaders.Names.CONTENT_TYPE, "text/html;charset=UTF-8");
 			
@@ -66,7 +68,10 @@ public class HttpRequestHandler extends SimpleChannelInboundHandler<FullHttpRequ
 	@Override
 	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause)
 			throws Exception {
-		ctx.close();
-		cause.printStackTrace(System.err);
+    	Channel incoming = ctx.channel();
+		System.out.println("Client:"+incoming.remoteAddress()+"异常");
+        // 当出现异常就关闭连接
+        cause.printStackTrace();
+        ctx.close();
 	}
 }
