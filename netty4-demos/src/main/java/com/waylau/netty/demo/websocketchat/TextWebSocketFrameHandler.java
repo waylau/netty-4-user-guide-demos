@@ -9,6 +9,12 @@ import io.netty.channel.group.DefaultChannelGroup;
 import io.netty.handler.codec.http.websocketx.TextWebSocketFrame;
 import io.netty.util.concurrent.GlobalEventExecutor;
 
+/**
+ * 处理TextWebSocketFrame
+ * 
+ * @author waylau.com
+ * 2015年3月26日
+ */
 public class TextWebSocketFrameHandler extends
 		SimpleChannelInboundHandler<TextWebSocketFrame> {
 	
@@ -60,7 +66,7 @@ public class TextWebSocketFrameHandler extends
 	}
 	
 	@Override
-	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause)
+	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause)	// (7)
 			throws Exception {
     	Channel incoming = ctx.channel();
 		System.out.println("Client:"+incoming.remoteAddress()+"异常");
