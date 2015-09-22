@@ -20,10 +20,10 @@ public class SimpleChatServerHandler extends SimpleChannelInboundHandler<String>
     @Override
     public void handlerAdded(ChannelHandlerContext ctx) throws Exception {  // (2)
         Channel incoming = ctx.channel();
+        channels.add(ctx.channel());//先加入,然后遍历,否则客户端是收不到'加入'这条消息的
         for (Channel channel : channels) {
             channel.writeAndFlush("[SERVER] - " + incoming.remoteAddress() + " 加入\n");
         }
-        channels.add(ctx.channel());
     }
 
     @Override
