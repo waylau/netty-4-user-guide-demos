@@ -10,6 +10,13 @@ package com.waylau.netty.demo.protocol;
  */
 public class ProtocolBody {
 
+	public Object getBody() {
+		return body;
+	}
+	public void setBody(Object body) {
+		this.body = body;
+	}
+	private Object body;
 	/**
 	 * 
 	 */
