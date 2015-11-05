@@ -4,7 +4,7 @@
 
 	<groupId>com.waylau</groupId>
 	<artifactId>netty4-demos</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<packaging>jar</packaging>
 
 	<name>netty4-demos</name>
@@ -39,7 +39,7 @@
 		<dependency>
 			<groupId>io.netty</groupId>
 			<artifactId>netty-all</artifactId>
-			<version>4.0.26.Final</version>
+			<version>4.0.32.Final</version>
 		</dependency>
 
 	</dependencies>

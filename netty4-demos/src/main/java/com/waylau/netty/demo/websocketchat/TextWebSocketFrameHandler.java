@@ -39,7 +39,7 @@ public class TextWebSocketFrameHandler extends
         for (Channel channel : channels) {
             channel.writeAndFlush(new TextWebSocketFrame("[SERVER] - " + incoming.remoteAddress() + " 加入"));
         }
-        channels.add(ctx.channel());
+        channels.add(incoming);
 		System.out.println("Client:"+incoming.remoteAddress() +"加入");
     }
 
@@ -50,7 +50,7 @@ public class TextWebSocketFrameHandler extends
             channel.writeAndFlush(new TextWebSocketFrame("[SERVER] - " + incoming.remoteAddress() + " 离开"));
         }
 		System.out.println("Client:"+incoming.remoteAddress() +"离开");
-        channels.remove(ctx.channel());
+        channels.remove(incoming);
     }
 	    
 	@Override
