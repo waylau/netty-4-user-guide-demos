@@ -11,6 +11,10 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
+import io.netty.handler.codec.DelimiterBasedFrameDecoder;
+import io.netty.handler.codec.Delimiters;
+import io.netty.handler.codec.string.StringDecoder;
+import io.netty.handler.codec.string.StringEncoder;
 
 /**
  * 说明：自定义协议客户端
@@ -42,6 +46,9 @@ public class ProtocolClient {
 	         b.handler(new ChannelInitializer<SocketChannel>() {
 	             @Override
 	             public void initChannel(SocketChannel ch) throws Exception {
+                	 ch.pipeline().addLast("framer", new DelimiterBasedFrameDecoder(8192, Delimiters.lineDelimiter()));
+                     ch.pipeline().addLast("decoder", new StringDecoder());
+                     ch.pipeline().addLast("encoder", new StringEncoder());
 	                 ch.pipeline().addLast(new ProtocolClientHandler());
 	             }
 	         });

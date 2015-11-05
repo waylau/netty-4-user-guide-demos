@@ -98,8 +98,8 @@ public class ProtocolClientHandler implements ChannelInboundHandler {
 	@Override
 	public void channelReadComplete(ChannelHandlerContext channelhandlercontext)
 			throws Exception {
-		// TODO Auto-generated method stub
-
+		channelhandlercontext.flush();
+		System.out.println("Server->Client:channelReadComplete" );
 	}
 
 	/* (non-Javadoc)

@@ -99,7 +99,22 @@ public class ProtocolServerHandler implements ChannelInboundHandler {
 	public void channelInactive(ChannelHandlerContext channelhandlercontext)
 			throws Exception {
         Channel incoming = channelhandlercontext.channel();
-		System.out.println("Client:"+incoming.remoteAddress()+"离线");
+        int channelId = 0;
+        for (Map.Entry<Integer, Channel> m :channels.entrySet()) {  
+        	if(m.getValue().equals(incoming)){
+        		channelId = m.getKey();
+        	}
+        }  
+        
+        // 广播给其他所有管道
+        if (channelId > 0) {
+    		System.out.println("Client:"+incoming.remoteAddress() +"离线");
+            channels.remove(channelId);
+            
+            for (Channel channel : channels.values()) {  
+                channel.writeAndFlush("[SERVER] - " + incoming.remoteAddress() + ";UUID:"+channelId+" 离线");
+            }
+        }
 	}
 
 	@Override
@@ -112,7 +127,7 @@ public class ProtocolServerHandler implements ChannelInboundHandler {
 	@Override
 	public void channelReadComplete(ChannelHandlerContext channelhandlercontext)
 			throws Exception {
-		// TODO Auto-generated method stub
+		channelhandlercontext.flush();
 		
 	}
 
