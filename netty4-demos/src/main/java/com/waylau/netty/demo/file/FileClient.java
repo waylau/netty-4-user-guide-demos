@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.waylau.netty.demo.protocol;
+package com.waylau.netty.demo.file;
 
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;
@@ -21,7 +21,7 @@ import io.netty.handler.codec.string.StringEncoder;
  *
  * @author <a href="http://www.waylau.com">waylau.com</a> 2015年11月5日 
  */
-public class ProtocolClient {
+public class FileClient {
 
 	private String host;
 	private int port;
@@ -29,7 +29,7 @@ public class ProtocolClient {
 	/**
 	 * 
 	 */
-	public ProtocolClient(String host,int port) {
+	public FileClient(String host,int port) {
 		this.host = host;
 		this.port = port;
 	}
@@ -49,7 +49,7 @@ public class ProtocolClient {
                 	 ch.pipeline().addLast("framer", new DelimiterBasedFrameDecoder(8192, Delimiters.lineDelimiter()));
                      ch.pipeline().addLast("decoder", new StringDecoder());
                      ch.pipeline().addLast("encoder", new StringEncoder());
-	                 ch.pipeline().addLast(new ProtocolClientHandler());
+	                 ch.pipeline().addLast(new FileClientHandler());
 	             }
 	         });
 
@@ -73,7 +73,7 @@ public class ProtocolClient {
 	 * @throws InterruptedException 
 	 */
 	public static void main(String[] args) throws InterruptedException {
- 		new ProtocolClient("localhost",8082).run();
+ 		new FileClient("localhost",8082).run();
 	}
 
 }
