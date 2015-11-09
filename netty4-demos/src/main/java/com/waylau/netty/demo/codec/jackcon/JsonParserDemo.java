@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.waylau.netty.demo.codec.jaskcon;
+package com.waylau.netty.demo.codec.jackcon;
 
 import java.io.File;
 import java.io.IOException;

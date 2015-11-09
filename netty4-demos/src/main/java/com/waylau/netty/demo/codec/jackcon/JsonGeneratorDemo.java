@@ -1,4 +1,4 @@
-package com.waylau.netty.demo.codec.jaskcon;
+package com.waylau.netty.demo.codec.jackcon;
 
 import java.io.File;
 import java.io.IOException;
@@ -32,8 +32,7 @@ public class JsonGeneratorDemo {
 		try {
 
 			JsonFactory jfactory = new JsonFactory();
-
-			/*** write to file ***/
+ 
 			JsonGenerator jGenerator = jfactory.createJsonGenerator(new File(
 					FILE_PATH), JsonEncoding.UTF8);
 			jGenerator.writeStartObject(); // {
