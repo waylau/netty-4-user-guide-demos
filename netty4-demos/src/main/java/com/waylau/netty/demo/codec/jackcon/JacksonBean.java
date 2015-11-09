@@ -1,5 +1,8 @@
 package com.waylau.netty.demo.codec.jackcon;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * 说明：一个用户 POJO
  *
@@ -9,6 +12,8 @@ public class JacksonBean {
  
 	private int age;
 	private String name;
+	private List<String> sons;
+	private Map<String, String> addrs;
 	
 	public int getAge() {
 		return age;
@@ -22,7 +27,18 @@ public class JacksonBean {
 	public void setName(String name) {
 		this.name = name;
 	}
-
+	public List<String> getSons() {
+		return sons;
+	}
+	public void setSons(List<String> sons) {
+		this.sons = sons;
+	}
+	public Map<String, String> getAddrs() {
+		return addrs;
+	}
+	public void setAddrs(Map<String, String> addrs) {
+		this.addrs = addrs;
+	}
 	/**
 	 * 
 	 */

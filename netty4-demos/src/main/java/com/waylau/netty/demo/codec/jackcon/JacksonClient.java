@@ -1,5 +1,10 @@
 package com.waylau.netty.demo.codec.jackcon;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.EventLoopGroup;
@@ -40,6 +45,14 @@ public class JacksonClient {
 			JacksonBean user = new JacksonBean();
 			user.setAge(27);
 			user.setName("waylau");
+			List<String> sons = new ArrayList<String>();
+			sons.add("Lucy");
+			sons.add("Lily");
+			user.setSons(sons);
+			Map<String, String> addrs = new HashMap<String, String>();
+			addrs.put("001", "18998366112");
+			addrs.put("002", "15014965012");
+			user.setAddrs(addrs);
 			channel.write(user);
 			channel.flush();
 

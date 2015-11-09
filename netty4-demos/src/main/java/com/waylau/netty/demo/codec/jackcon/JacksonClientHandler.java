@@ -19,8 +19,10 @@ public class JacksonClientHandler extends
 			throws Exception {
 		if (obj instanceof JacksonBean) {
 			JacksonBean user = (JacksonBean) obj;
-			System.out.println("Client get msg form Server - name:"
-					+ user.getName() + ";age:" + user.getAge());
+			
+			String jsonString = JacksonMapper.getInstance().writeValueAsString(user); // 对象转为json字符串
+			
+			System.out.println("Client get msg form Server -" + jsonString);
 		}
 
 	}

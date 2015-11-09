@@ -11,7 +11,7 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.MessageToByteEncoder;
 
 /**
- * 说明：
+ * 说明：Jackson json 编码器
  *
  * @author <a href="http://www.waylau.com">waylau.com</a> 2015年11月9日 
  */

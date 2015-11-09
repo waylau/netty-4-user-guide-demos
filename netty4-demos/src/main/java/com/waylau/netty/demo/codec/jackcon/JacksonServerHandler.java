@@ -20,7 +20,7 @@ public class JacksonServerHandler extends SimpleChannelInboundHandler<Object> {
 			
 			ctx.writeAndFlush(user);
 
-			String jsonString = JacksonMapper.getInstance().writeValueAsString(user);
+			String jsonString = JacksonMapper.getInstance().writeValueAsString(user); // 对象转为json字符串
 			System.out.println("Server get msg form Client -" + jsonString);
 		}
 	}
