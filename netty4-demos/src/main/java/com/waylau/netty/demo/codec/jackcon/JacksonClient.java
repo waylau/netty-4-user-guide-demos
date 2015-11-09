@@ -50,8 +50,11 @@ public class JacksonClient {
 			sons.add("Lily");
 			user.setSons(sons);
 			Map<String, String> addrs = new HashMap<String, String>();
-			addrs.put("001", "18998366112");
-			addrs.put("002", "15014965012");
+			for (int i = 0;i <10; i++) {
+				addrs.put("001"+i, "18998366112");
+				addrs.put("002"+i, "15014965012");
+			}
+
 			user.setAddrs(addrs);
 			channel.write(user);
 			channel.flush();
