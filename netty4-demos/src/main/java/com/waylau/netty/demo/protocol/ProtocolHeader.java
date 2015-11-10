@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.waylau.netty.demo.protocol;
 
 /**
@@ -10,23 +7,17 @@ package com.waylau.netty.demo.protocol;
  */
 public class ProtocolHeader {
 	
-	private byte frameHead; // 帧头
+	private byte magic; 	// 魔数
 	private byte msgType;	// 消息类型
-	private byte reserve;	// 保留字
+	private short reserve;	// 保留字
 	private short sn;		// 序列号
-	private short len;		// 长度
-	/**
-	 * 
-	 */
-	public ProtocolHeader() {
-		// TODO Auto-generated constructor stub
+	private int len;		// 长度
+	
+	public byte getMagic() {
+		return magic;
 	}
-
-	public byte getFrameHead() {
-		return frameHead;
-	}
-	public void setFrameHead(byte frameHead) {
-		this.frameHead = frameHead;
+	public void setMagic(byte magic) {
+		this.magic = magic;
 	}
 	public byte getMsgType() {
 		return msgType;
@@ -34,10 +25,10 @@ public class ProtocolHeader {
 	public void setMsgType(byte msgType) {
 		this.msgType = msgType;
 	}
-	public byte getReserve() {
+	public short getReserve() {
 		return reserve;
 	}
-	public void setReserve(byte reserve) {
+	public void setReserve(short reserve) {
 		this.reserve = reserve;
 	}
 	public short getSn() {
@@ -46,10 +37,18 @@ public class ProtocolHeader {
 	public void setSn(short sn) {
 		this.sn = sn;
 	}
-	public short getLen() {
+	public int getLen() {
 		return len;
 	}
-	public void setLen(short len) {
+	public void setLen(int len) {
 		this.len = len;
 	}
+
+	/**
+	 * 
+	 */
+	public ProtocolHeader() {
+		// TODO Auto-generated constructor stub
+	}
+
 }
