@@ -3,6 +3,8 @@
  */
 package com.waylau.netty.demo.protocol;
 
+import java.nio.charset.Charset;
+
 import com.waylau.netty.util.ByteObjConverter;
 
 import io.netty.buffer.ByteBuf;
@@ -58,15 +60,17 @@ public class ProtocolEncoder extends MessageToByteEncoder<ProtocolMsg> {
 			ByteBuf out) throws Exception {
 		// TODO Auto-generated method stub
 		ProtocolHeader header = msg.getProtocolHeader();
-		ProtocolBody body = msg.getProtocolBody();
-		byte[] bodyBytes = ByteObjConverter.ObjectToByte(body);
+		//ProtocolBody body = msg.getProtocolBody();
+		String body = msg.getBody();
+		byte[] bodyBytes = body.getBytes(Charset.forName("utf-8"));
+		//byte[] bodyBytes = ByteObjConverter.ObjectToByte(body);
 		int bodySize = bodyBytes.length;
 		
 		out.writeByte(header.getMagic());
 		out.writeByte(header.getMsgType());
 		out.writeShort(header.getReserve());
 		out.writeShort(header.getSn());
-		out.writeShort(bodySize);
+		out.writeInt(bodySize);
 		out.writeBytes(bodyBytes);
 	}
 

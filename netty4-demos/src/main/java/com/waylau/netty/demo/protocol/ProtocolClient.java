@@ -3,6 +3,10 @@
  */
 package com.waylau.netty.demo.protocol;
 
+import java.nio.charset.Charset;
+
+import com.waylau.netty.util.ByteObjConverter;
+
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
@@ -46,9 +50,8 @@ public class ProtocolClient {
 	         b.handler(new ChannelInitializer<SocketChannel>() {
 	             @Override
 	             public void initChannel(SocketChannel ch) throws Exception {
-                	 ch.pipeline().addLast("framer", new DelimiterBasedFrameDecoder(8192, Delimiters.lineDelimiter()));
-                     ch.pipeline().addLast("decoder", new StringDecoder());
-                     ch.pipeline().addLast("encoder", new StringEncoder());
+                     ch.pipeline().addLast("decoder", new ProtocolDecoder());
+                     ch.pipeline().addLast("encoder", new ProtocolEncoder());
 	                 ch.pipeline().addLast(new ProtocolClientHandler());
 	             }
 	         });
@@ -56,13 +59,29 @@ public class ProtocolClient {
 	         // 启动客户端
 	         ChannelFuture f = b.connect(host, port).sync(); // (5)
 	         
-	         while (true) {
-		         f.channel().writeAndFlush("床前明月光,疑是地上霜,举头望明月,低头思故乡\r\n");
-		         Thread.sleep(500);
-	         }
+	         //while (true) {
+	        	 ProtocolMsg msg = new ProtocolMsg();
+	        	 //ProtocolBody body = new ProtocolBody();
+	        	 ProtocolHeader protocolHeader = new ProtocolHeader();
+	        	 protocolHeader.setMagic((byte) 0x01);
+	        	 protocolHeader.setMsgType((byte) 0x01);
+	        	 protocolHeader.setReserve((short)0);
+	        	 protocolHeader.setSn((short)0);
+	        	 String body = "床前明月光,疑是地上霜,举头望明月,低头思故乡";
+	        	 //body.setBody("床前明月光,疑是地上霜,举头望明月,低头思故乡");
+	        	 byte[] bodyBytes = body.getBytes(Charset.forName("utf-8"));
+	     		//byte[] bodyBytes = ByteObjConverter.ObjectToByte(body);
+	     		int bodySize = bodyBytes.length;
+	        	 protocolHeader.setLen(bodySize);
+	        	 
+	        	 msg.setProtocolHeader(protocolHeader);
+	        	 msg.setBody(body);
+		         f.channel().writeAndFlush(msg);
+		         //Thread.sleep(5000);
+	         //}
 
 	         // 等待连接关闭
-	         //f.channel().closeFuture().sync();
+	         f.channel().closeFuture().sync();
 	     } finally {
 	         workerGroup.shutdownGracefully();
 	     }

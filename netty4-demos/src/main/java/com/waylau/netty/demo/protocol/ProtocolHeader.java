@@ -1,12 +1,18 @@
 package com.waylau.netty.demo.protocol;
 
+import java.io.Serializable;
+
 /**
  * 说明：协议消息头
  *
  * @author <a href="http://www.waylau.com">waylau.com</a> 2015年11月4日 
  */
-public class ProtocolHeader {
+public class ProtocolHeader implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1042727535314614140L;
 	private byte magic; 	// 魔数
 	private byte msgType;	// 消息类型
 	private short reserve;	// 保留字
@@ -43,12 +49,17 @@ public class ProtocolHeader {
 	public void setLen(int len) {
 		this.len = len;
 	}
-
+	public ProtocolHeader() {
+	}
 	/**
 	 * 
 	 */
-	public ProtocolHeader() {
-		// TODO Auto-generated constructor stub
+	public ProtocolHeader(byte magic, byte msgType,short reserve,short sn,int len) {
+		this.magic = magic;
+		this.msgType = msgType;
+		this.reserve = reserve;
+		this.sn = sn;
+		this.len = len;
 	}
 
 }
