@@ -16,7 +16,7 @@ public class JacksonClientHandlerInitializer extends
 	@Override
 	protected void initChannel(Channel ch) throws Exception {
 		ChannelPipeline pipeline = ch.pipeline();
-		pipeline.addLast(new JacksonDecoder());
+		pipeline.addLast(new JacksonDecoder<JacksonBean>(JacksonBean.class));
 		pipeline.addLast(new JacksonEncoder());
 		pipeline.addLast(new JacksonClientHandler());
 	}

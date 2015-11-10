@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.waylau.netty.demo.codec.jackcon;
+package com.waylau.netty.util;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;

@@ -17,14 +17,15 @@ public class JacksonClientHandler extends
 	@Override
 	protected void channelRead0(ChannelHandlerContext ctx, Object obj)
 			throws Exception {
+		String jsonString = "";
 		if (obj instanceof JacksonBean) {
 			JacksonBean user = (JacksonBean) obj;
 			
-			String jsonString = JacksonMapper.getInstance().writeValueAsString(user); // 对象转为json字符串
-			
-			System.out.println("Client get msg form Server -" + jsonString);
+			jsonString = JacksonMapper.getInstance().writeValueAsString(user); // 对象转为json字符串
+		} else {
+			jsonString = JacksonMapper.getInstance().writeValueAsString(obj); // 对象转为json字符串
 		}
-
+		System.out.println("Client get msg form Server -" + jsonString);
 	}
 
 }

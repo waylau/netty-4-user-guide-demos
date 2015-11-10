@@ -46,8 +46,11 @@ public class JacksonClient {
 			user.setAge(27);
 			user.setName("waylau");
 			List<String> sons = new ArrayList<String>();
-			sons.add("Lucy");
-			sons.add("Lily");
+			for (int i = 0;i <10; i++) {
+				sons.add("Lucy"+i);
+				sons.add("Lily"+i);
+			}
+
 			user.setSons(sons);
 			Map<String, String> addrs = new HashMap<String, String>();
 			for (int i = 0;i <10; i++) {
@@ -58,7 +61,7 @@ public class JacksonClient {
 			user.setAddrs(addrs);
 			channel.write(user);
 			channel.flush();
-
+ 
 			// 等待连接关闭
 			channel.closeFuture().sync();
         } catch (Exception e) {

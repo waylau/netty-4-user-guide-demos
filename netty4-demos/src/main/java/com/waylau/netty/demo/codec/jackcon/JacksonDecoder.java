@@ -12,13 +12,14 @@ import io.netty.handler.codec.ByteToMessageDecoder;
  *
  * @author <a href="http://www.waylau.com">waylau.com</a> 2015年11月9日
  */
-public class JacksonDecoder extends ByteToMessageDecoder {
+public class JacksonDecoder<T> extends ByteToMessageDecoder {
 
+    private final Class<T> clazz;
 	/**
 	 * 
 	 */
-	public JacksonDecoder() {
-		// TODO Auto-generated constructor stub
+    public JacksonDecoder(Class<T> clazz) {
+        this.clazz = clazz;
 	}
 
 	/*
@@ -30,9 +31,9 @@ public class JacksonDecoder extends ByteToMessageDecoder {
 	@Override
 	protected void decode(ChannelHandlerContext ctx, ByteBuf in,
 			List<Object> out) throws Exception {
-        
         ByteBufInputStream byteBufInputStream = new ByteBufInputStream(in);
-        out.add(JacksonMapper.getInstance().readValue(byteBufInputStream, JacksonBean.class));
+        out.add(JacksonMapper.getInstance().readValue(byteBufInputStream, clazz));
+
 	}
 
 }
