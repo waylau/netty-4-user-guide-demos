@@ -3,19 +3,18 @@
  */
 package com.waylau.netty.demo.protocol;
 
+import java.nio.ByteOrder;
 import java.util.List;
-
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
-import io.netty.handler.codec.ByteToMessageDecoder;
+import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
 
 /**
  * 说明：
  *
- * @author <a href="http://www.waylau.com">waylau.com</a> 2015年11月10日
+ * @author <a href="http://www.waylau.com">waylau.com</a> 2015年11月11日 
  */
-public class ProtocolDecoder extends ByteToMessageDecoder {
-
+public class ProtocolDecoder extends LengthFieldBasedFrameDecoder {
 	private static final int HEADER_SIZE = 10;
 
 	private byte magic; // 魔数
@@ -23,25 +22,46 @@ public class ProtocolDecoder extends ByteToMessageDecoder {
 	private short reserve; // 保留字
 	private short sn; // 序列号
 	private int len; // 长度
+ 
+	/**
+	 * @param maxFrameLength
+	 * @param lengthFieldOffset
+	 * @param lengthFieldLength
+	 * @param lengthAdjustment
+	 * @param initialBytesToStrip
+	 */
+	public ProtocolDecoder(int maxFrameLength, int lengthFieldOffset,
+			int lengthFieldLength, int lengthAdjustment, int initialBytesToStrip) {
+		super(maxFrameLength, lengthFieldOffset, lengthFieldLength,
+				lengthAdjustment, initialBytesToStrip);
+ 	}
 
 	/**
-	 * 
+	 * @param maxFrameLength
+	 * @param lengthFieldOffset
+	 * @param lengthFieldLength
+	 * @param lengthAdjustment
+	 * @param initialBytesToStrip
+	 * @param failFast
 	 */
-	public ProtocolDecoder() {
+	public ProtocolDecoder(int maxFrameLength, int lengthFieldOffset,
+			int lengthFieldLength, int lengthAdjustment,
+			int initialBytesToStrip, boolean failFast) {
+		super(maxFrameLength, lengthFieldOffset, lengthFieldLength,
+				lengthAdjustment, initialBytesToStrip, failFast);
 		// TODO Auto-generated constructor stub
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see io.netty.handler.codec.ByteToMessageDecoder#decode(io.netty.channel.
-	 * ChannelHandlerContext, io.netty.buffer.ByteBuf, java.util.List)
-	 */
+ 
 	@Override
-	protected void decode(ChannelHandlerContext ctx, ByteBuf in,
-			List<Object> out) throws Exception {
+	protected ProtocolMsg decode(ChannelHandlerContext ctx, ByteBuf in2) throws Exception {
+		ByteBuf in = (ByteBuf) super.decode(ctx, in2);
+		if (in == null) {
+		    return null;
+		}
+		
 		if (in.readableBytes() < HEADER_SIZE) {
-			return;// response header is 10 bytes
+			return null;// response header is 10 bytes
 		}
 
 		magic = in.readByte();
@@ -51,7 +71,7 @@ public class ProtocolDecoder extends ByteToMessageDecoder {
 		len = in.readInt();
 
 		if (in.readableBytes() < len) {
-			return; // until we have the entire payload return
+			return null; // until we have the entire payload return
 		}
 
 		ByteBuf buf = in.readBytes(len);
@@ -59,16 +79,10 @@ public class ProtocolDecoder extends ByteToMessageDecoder {
 		buf.readBytes(req);
 		String body = new String(req, "UTF-8");
 		ProtocolMsg msg = new ProtocolMsg();
-
-//		ProtocolBody body2 = new ProtocolBody();
-//		body2.setBody(body);
 		ProtocolHeader protocolHeader = new ProtocolHeader(magic, msgType,
 				reserve, sn, len);
-		//msg.setProtocolBody(body2);
 		msg.setBody(body);
 		msg.setProtocolHeader(protocolHeader);
-		out.add(msg);
-
+		return msg;
 	}
-
 }

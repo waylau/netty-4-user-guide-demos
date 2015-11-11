@@ -1,24 +1,15 @@
-/**
- * 
- */
 package com.waylau.netty.demo.protocol;
 
-import java.io.Serializable;
-
 /**
- * 说明：
+ * 说明：消息对象
  *
  * @author <a href="http://www.waylau.com">waylau.com</a> 2015年11月5日 
  */
-public class ProtocolMsg implements Serializable {
-	
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 2997057445525218441L;
+public class ProtocolMsg {
+	 
 	private ProtocolHeader protocolHeader = new ProtocolHeader();
-	//private ProtocolBody protocolBody = new ProtocolBody();
+ 	private String body;
+ 	
 	public String getBody() {
 		return body;
 	}
@@ -27,11 +18,7 @@ public class ProtocolMsg implements Serializable {
 		this.body = body;
 	}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
 
-	private String body = "";
 	/**
 	 * 
 	 */
@@ -47,12 +34,5 @@ public class ProtocolMsg implements Serializable {
 		this.protocolHeader = protocolHeader;
 	}
 
-//	public ProtocolBody getProtocolBody() {
-//		return protocolBody;
-//	}
-//
-//	public void setProtocolBody(ProtocolBody protocolBody) {
-//		this.protocolBody = protocolBody;
-//	}
 
 }

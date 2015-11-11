@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.waylau.netty.demo.protocol;
 
 /**
@@ -24,7 +21,11 @@ public class ClientTask implements Runnable {
 	public void run() {
 		// TODO Auto-generated method stub
 		try {
-			new ProtocolClient("localhost", 8082).run();
+			ProtocolClient client = new ProtocolClient("localhost", 8082);
+			
+			client.run();
+ 
+			
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

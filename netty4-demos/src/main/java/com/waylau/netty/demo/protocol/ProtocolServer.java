@@ -21,6 +21,12 @@ public class ProtocolServer {
 
 	private int port;
 	
+	private static final int MAX_FRAME_LENGTH = 1024 * 1024;
+	private static final int LENGTH_FIELD_LENGTH = 6;
+	private static final int LENGTH_FIELD_OFFSET = 4;
+	private static final int LENGTH_ADJUSTMENT = 0;
+	private static final int INITIAL_BYTES_TO_STRIP = 0;
+	
 	/**
 	 * 
 	 */
@@ -38,7 +44,10 @@ public class ProtocolServer {
 	             .childHandler(new ChannelInitializer<SocketChannel>() { // (4)
 	                 @Override
 	                 public void initChannel(SocketChannel ch) throws Exception {
-	                     ch.pipeline().addLast("decoder", new ProtocolDecoder());
+	 					ch.pipeline().addLast("decoder",
+								new ProtocolDecoder(MAX_FRAME_LENGTH,
+										LENGTH_FIELD_LENGTH, LENGTH_FIELD_OFFSET,
+										LENGTH_ADJUSTMENT, INITIAL_BYTES_TO_STRIP));
 	                     ch.pipeline().addLast("encoder", new ProtocolEncoder());
 	                     ch.pipeline().addLast(new ProtocolServerHandler());
 	                 }

@@ -1,18 +1,13 @@
 package com.waylau.netty.demo.protocol;
-
-import java.io.Serializable;
+ 
 
 /**
  * 说明：协议消息头
  *
  * @author <a href="http://www.waylau.com">waylau.com</a> 2015年11月4日 
  */
-public class ProtocolHeader implements Serializable {
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -1042727535314614140L;
+public class ProtocolHeader{
+ 
 	private byte magic; 	// 魔数
 	private byte msgType;	// 消息类型
 	private short reserve;	// 保留字

@@ -13,7 +13,7 @@ import java.util.concurrent.Executors;
  */
 public class ProtocolClientTest {
 
-	private static final int POOL_SIZE_SEND = 10;
+	private static final int POOL_SIZE_SEND = 100;
 
 	/**
 	 * @param args
