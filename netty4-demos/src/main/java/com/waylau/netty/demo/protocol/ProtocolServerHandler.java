@@ -1,6 +1,8 @@
 package com.waylau.netty.demo.protocol;
 
+import io.netty.buffer.Unpooled;
 import io.netty.channel.Channel;
+import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 
@@ -16,14 +18,17 @@ public class ProtocolServerHandler extends SimpleChannelInboundHandler<Object> {
 	protected void channelRead0(ChannelHandlerContext ctx, Object obj)
 			throws Exception {
         Channel incoming = ctx.channel();
-		System.out.println("Client->Server:"+incoming.remoteAddress()+obj.toString());
 		
 		if(obj instanceof ProtocolMsg) {
 			ProtocolMsg msg = (ProtocolMsg)obj;
 			System.out.println("Client->Server:"+incoming.remoteAddress()+msg.getBody());
+			incoming.write(obj);
 		}
-		incoming.writeAndFlush(obj);
-		
 	}
-
+	
+	@Override
+    public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
+        ctx.writeAndFlush(Unpooled.EMPTY_BUFFER)//4
+        .addListener(ChannelFutureListener.CLOSE);
+    }
 }
