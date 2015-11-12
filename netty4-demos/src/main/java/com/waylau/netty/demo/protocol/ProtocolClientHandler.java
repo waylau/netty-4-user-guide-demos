@@ -26,7 +26,7 @@ public class ProtocolClientHandler extends SimpleChannelInboundHandler<Object> {
 	}
 	@Override
     public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
-        ctx.flush();
+        //ctx.flush();
     }
  
 }

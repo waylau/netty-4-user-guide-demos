@@ -58,35 +58,39 @@ public class ProtocolClient {
 
 				}
 			});
+			
 
 			// 启动客户端
 			ChannelFuture f = b.connect(host, port).sync(); // (5)
+			
+			while (true) {
 			// 发送消息给服务器
-			ProtocolMsg msg = new ProtocolMsg();
-			ProtocolHeader protocolHeader = new ProtocolHeader();
-			protocolHeader.setMagic((byte) 0x01);
-			protocolHeader.setMsgType((byte) 0x01);
-			protocolHeader.setReserve((short) 0);
-			protocolHeader.setSn((short) 0);
-			String body = "床前明月光疑是地上霜";
-			StringBuffer sb = new StringBuffer();
-			for (int i = 0; i < 2700; i++) {
-				sb.append(body);
+				ProtocolMsg msg = new ProtocolMsg();
+				ProtocolHeader protocolHeader = new ProtocolHeader();
+				protocolHeader.setMagic((byte) 0x01);
+				protocolHeader.setMsgType((byte) 0x01);
+				protocolHeader.setReserve((short) 0);
+				protocolHeader.setSn((short) 0);
+				String body = "床前明月光疑是地上霜";
+				StringBuffer sb = new StringBuffer();
+				for (int i = 0; i < 2700; i++) {
+					sb.append(body);
+				}
+	
+				byte[] bodyBytes = sb.toString().getBytes(
+						Charset.forName("utf-8"));
+				int bodySize = bodyBytes.length;
+				protocolHeader.setLen(bodySize);
+	
+				msg.setProtocolHeader(protocolHeader);
+				msg.setBody(sb.toString());
+
+			
+				f.channel().writeAndFlush(msg);
+				Thread.sleep(2000);
 			}
-
-			byte[] bodyBytes = sb.toString().getBytes(
-					Charset.forName("utf-8"));
-			int bodySize = bodyBytes.length;
-			protocolHeader.setLen(bodySize);
-
-			msg.setProtocolHeader(protocolHeader);
-			msg.setBody(sb.toString());
-
-			//while (true) {
-			f.channel().writeAndFlush(msg);
-
 			// 等待连接关闭
-			f.channel().closeFuture().sync();
+			//f.channel().closeFuture().sync();
 		} finally {
 			workerGroup.shutdownGracefully();
 		}
