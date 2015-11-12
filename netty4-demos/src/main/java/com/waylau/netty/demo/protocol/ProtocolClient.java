@@ -3,9 +3,6 @@ package com.waylau.netty.demo.protocol;
 import java.nio.charset.Charset;
 
 import io.netty.bootstrap.Bootstrap;
-import io.netty.buffer.ByteBuf;
-import io.netty.buffer.Unpooled;
-import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelInitializer;
@@ -26,8 +23,8 @@ public class ProtocolClient {
 	private int port;
 
 	private static final int MAX_FRAME_LENGTH = 1024 * 1024;
-	private static final int LENGTH_FIELD_LENGTH = 6;
-	private static final int LENGTH_FIELD_OFFSET = 4;
+	private static final int LENGTH_FIELD_LENGTH = 4;
+	private static final int LENGTH_FIELD_OFFSET = 6;
 	private static final int LENGTH_ADJUSTMENT = 0;
 	private static final int INITIAL_BYTES_TO_STRIP = 0;
 
@@ -54,7 +51,7 @@ public class ProtocolClient {
 					ch.pipeline().addLast(
 							"decoder",
 							new ProtocolDecoder(MAX_FRAME_LENGTH,
-									LENGTH_FIELD_LENGTH, LENGTH_FIELD_OFFSET,
+									LENGTH_FIELD_OFFSET,LENGTH_FIELD_LENGTH, 
 									LENGTH_ADJUSTMENT, INITIAL_BYTES_TO_STRIP));
 					ch.pipeline().addLast("encoder", new ProtocolEncoder());
 					ch.pipeline().addLast(new ProtocolClientHandler());
@@ -64,43 +61,29 @@ public class ProtocolClient {
 
 			// 启动客户端
 			ChannelFuture f = b.connect(host, port).sync(); // (5)
-			f.addListener(new ChannelFutureListener() { // 2
-				@Override
-				public void operationComplete(ChannelFuture future)
-						throws InterruptedException {
-					if (future.isSuccess()) { // 3
-						// 发送消息给服务器
-						ProtocolMsg msg = new ProtocolMsg();
-						ProtocolHeader protocolHeader = new ProtocolHeader();
-						protocolHeader.setMagic((byte) 0x01);
-						protocolHeader.setMsgType((byte) 0x01);
-						protocolHeader.setReserve((short) 0);
-						protocolHeader.setSn((short) 0);
-						String body = "床前明月光疑是地上霜";
-						StringBuffer sb = new StringBuffer();
-						for (int i = 0; i < 170; i++) {
-							sb.append(body);
-						}
+			// 发送消息给服务器
+			ProtocolMsg msg = new ProtocolMsg();
+			ProtocolHeader protocolHeader = new ProtocolHeader();
+			protocolHeader.setMagic((byte) 0x01);
+			protocolHeader.setMsgType((byte) 0x01);
+			protocolHeader.setReserve((short) 0);
+			protocolHeader.setSn((short) 0);
+			String body = "床前明月光疑是地上霜";
+			StringBuffer sb = new StringBuffer();
+			for (int i = 0; i < 2700; i++) {
+				sb.append(body);
+			}
 
-						byte[] bodyBytes = sb.toString().getBytes(
-								Charset.forName("utf-8"));
-						int bodySize = bodyBytes.length;
-						protocolHeader.setLen(bodySize);
+			byte[] bodyBytes = sb.toString().getBytes(
+					Charset.forName("utf-8"));
+			int bodySize = bodyBytes.length;
+			protocolHeader.setLen(bodySize);
 
-						msg.setProtocolHeader(protocolHeader);
-						msg.setBody(sb.toString());
+			msg.setProtocolHeader(protocolHeader);
+			msg.setBody(sb.toString());
 
-						while (true) {
-							future.channel().writeAndFlush(msg);
-							Thread.sleep(1000);
-						}
-				 
-					} else {
-						Throwable cause = future.cause(); 
-						cause.printStackTrace();
-					}
-				}
-			});
+			//while (true) {
+			f.channel().writeAndFlush(msg);
 
 			// 等待连接关闭
 			f.channel().closeFuture().sync();

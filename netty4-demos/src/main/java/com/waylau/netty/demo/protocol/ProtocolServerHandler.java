@@ -1,8 +1,6 @@
 package com.waylau.netty.demo.protocol;
 
-import io.netty.buffer.Unpooled;
 import io.netty.channel.Channel;
-import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 
@@ -28,7 +26,6 @@ public class ProtocolServerHandler extends SimpleChannelInboundHandler<Object> {
 	
 	@Override
     public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
-        ctx.writeAndFlush(Unpooled.EMPTY_BUFFER)//4
-        .addListener(ChannelFutureListener.CLOSE);
+        ctx.flush();
     }
 }

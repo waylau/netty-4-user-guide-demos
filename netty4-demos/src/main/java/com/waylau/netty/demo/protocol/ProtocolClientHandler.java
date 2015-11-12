@@ -1,12 +1,9 @@
 package com.waylau.netty.demo.protocol;
-
-import java.nio.charset.Charset;
-
 import io.netty.buffer.Unpooled;
 import io.netty.channel.Channel;
+import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
-import io.netty.util.CharsetUtil;
 
 /**
  * 说明：处理器
@@ -27,4 +24,9 @@ public class ProtocolClientHandler extends SimpleChannelInboundHandler<Object> {
 			System.out.println("Server->Client:"+incoming.remoteAddress()+msg.getBody());
 		}
 	}
+	@Override
+    public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
+        ctx.flush();
+    }
+ 
 }

@@ -1,10 +1,5 @@
-/**
- * 
- */
 package com.waylau.netty.demo.protocol;
 
-import java.nio.ByteOrder;
-import java.util.List;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
