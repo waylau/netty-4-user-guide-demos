@@ -4,7 +4,6 @@ import java.nio.charset.Charset;
 
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;
-import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelOption;
 import io.netty.channel.EventLoopGroup;
@@ -51,20 +50,20 @@ public class ProtocolClient {
 					ch.pipeline().addLast(
 							"decoder",
 							new ProtocolDecoder(MAX_FRAME_LENGTH,
-									LENGTH_FIELD_OFFSET,LENGTH_FIELD_LENGTH, 
+									LENGTH_FIELD_OFFSET, LENGTH_FIELD_LENGTH,
 									LENGTH_ADJUSTMENT, INITIAL_BYTES_TO_STRIP));
 					ch.pipeline().addLast("encoder", new ProtocolEncoder());
 					ch.pipeline().addLast(new ProtocolClientHandler());
 
 				}
 			});
-			
 
 			// 启动客户端
 			ChannelFuture f = b.connect(host, port).sync(); // (5)
-			
+
 			while (true) {
-			// 发送消息给服务器
+
+				// 发送消息给服务器
 				ProtocolMsg msg = new ProtocolMsg();
 				ProtocolHeader protocolHeader = new ProtocolHeader();
 				protocolHeader.setMagic((byte) 0x01);
@@ -76,21 +75,20 @@ public class ProtocolClient {
 				for (int i = 0; i < 2700; i++) {
 					sb.append(body);
 				}
-	
+
 				byte[] bodyBytes = sb.toString().getBytes(
 						Charset.forName("utf-8"));
 				int bodySize = bodyBytes.length;
 				protocolHeader.setLen(bodySize);
-	
+
 				msg.setProtocolHeader(protocolHeader);
 				msg.setBody(sb.toString());
 
-			
 				f.channel().writeAndFlush(msg);
 				Thread.sleep(2000);
 			}
 			// 等待连接关闭
-			//f.channel().closeFuture().sync();
+			// f.channel().closeFuture().sync();
 		} finally {
 			workerGroup.shutdownGracefully();
 		}
