@@ -4,7 +4,7 @@
 
 	<groupId>com.waylau</groupId>
 	<artifactId>netty4-demos</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<packaging>jar</packaging>
 
 	<name>netty4-demos</name>
@@ -12,6 +12,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<version.jackson.core>2.6.3</version.jackson.core>
 	</properties>
 	<build>
 		<plugins>
@@ -39,8 +40,17 @@
 		<dependency>
 			<groupId>io.netty</groupId>
 			<artifactId>netty-all</artifactId>
-			<version>4.0.26.Final</version>
+			<version>4.0.32.Final</version>
 		</dependency>
-
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>${version.jackson.core}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>${version.jackson.core}</version>
+		</dependency>
 	</dependencies>
 </project>
