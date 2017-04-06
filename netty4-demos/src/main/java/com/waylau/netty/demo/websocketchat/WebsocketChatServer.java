@@ -33,7 +33,7 @@ public class WebsocketChatServer {
              .option(ChannelOption.SO_BACKLOG, 128)          // (5)
              .childOption(ChannelOption.SO_KEEPALIVE, true); // (6)
             
-    		System.out.println("WebsocketChatServer 启动了");
+    		System.out.println("WebsocketChatServer 启动了" + port);
     		
             // 绑定端口，开始接收进来的连接
             ChannelFuture f = b.bind(port).sync(); // (7)
