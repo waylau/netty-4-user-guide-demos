@@ -38,11 +38,11 @@ public class BlockingEchoServer {
 			// 服务器监听
 			serverSocket = new ServerSocket(port);
 			System.out.println(
-					"BlockingEchoServer started on port: " + port);
+					"BlockingEchoServer已启动，端口：" + port);
 			
 		} catch (IOException e) {
 			System.out.println(
-					"BlockingEchoServer started exception on port: " + port);
+					"BlockingEchoServer启动异常，端口：" + port);
 			System.out.println(e.getMessage());
 		}
 		
@@ -66,7 +66,7 @@ public class BlockingEchoServer {
 			}
 		} catch (IOException e) {
 			System.out.println(
-					"BlockingEchoServer exception!" + e.getMessage());
+					"BlockingEchoServer异常!" + e.getMessage());
 		}
 	}
 
