@@ -65,15 +65,15 @@ public class NonBlokingEchoServer {
 					// 可连接
 					if (key.isAcceptable()) {
 						ServerSocketChannel server = (ServerSocketChannel) key.channel();
-						SocketChannel client = server.accept();
+						SocketChannel socketChannel = server.accept();
 
-						System.out.println("NonBlokingEchoServer接受客户端的连接：" + client);
+						System.out.println("NonBlokingEchoServer接受客户端的连接：" + socketChannel);
 
 						// 设置为非阻塞
-						client.configureBlocking(false);
+						socketChannel.configureBlocking(false);
 
 						// 客户端注册到Selector
-						SelectionKey clientKey = client.register(selector,
+						SelectionKey clientKey = socketChannel.register(selector,
 								SelectionKey.OP_WRITE | SelectionKey.OP_READ);
 
 						// 分配缓存区
@@ -112,6 +112,8 @@ public class NonBlokingEchoServer {
 					try {
 						key.channel().close();
 					} catch (IOException cex) {
+						System.out.println(
+								"NonBlockingEchoServer异常!" + cex.getMessage());
 					}
 				}
 			}
