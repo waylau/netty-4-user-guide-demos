@@ -8,7 +8,7 @@
 	<packaging>jar</packaging>
 
 	<name>netty4-demos</name>
-	<url>http://www.waylau.com</url>
+	<url>https://waylau.com</url>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

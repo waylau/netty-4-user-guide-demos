@@ -14,4 +14,5 @@ Demos of [Netty 4.x User Guide](https://github.com/waylau/netty-4-user-guide) �
 * [Java标准I/O实现Echo服务器、客户端](netty4-demos/src/main/java/com/waylau/java/demo/net)
 * [Java NIO实现Echo服务器、客户端](netty4-demos/src/main/java/com/waylau/java/demo/nio)
 * [Java AIO实现Echo服务器、客户端](netty4-demos/src/main/java/com/waylau/java/demo/aio)
+* [Netty实现Echo服务器、客户端](netty4-demos/src/main/java/com/waylau/netty/demo/echo)
 * ...

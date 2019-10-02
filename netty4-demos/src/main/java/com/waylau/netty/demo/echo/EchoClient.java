@@ -1,58 +1,79 @@
 package com.waylau.netty.demo.echo;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.UnknownHostException;
+import java.nio.ByteBuffer;
+
 import io.netty.bootstrap.Bootstrap;
+import io.netty.buffer.ByteBuf;
+import io.netty.buffer.Unpooled;
+import io.netty.channel.Channel;
 import io.netty.channel.ChannelFuture;
-import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelOption;
-import io.netty.channel.ChannelPipeline;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
-import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
-import io.netty.handler.codec.DelimiterBasedFrameDecoder;
-import io.netty.handler.codec.Delimiters;
-import io.netty.handler.codec.string.StringDecoder;
-import io.netty.handler.codec.string.StringEncoder;
 
 /**
- * Sends one message when a connection is open and echoes back any received
- * data to the server.  Simply put, the echo client initiates the ping-pong
- * traffic between the echo client and server by sending the first message to
- * the server.
+ * Echo Client.
+ * 
+ * @since 1.0.0 2019年10月2日
+ * @author <a href="https://waylau.com">Way Lau</a>
  */
 public final class EchoClient {
- 
-    static final String HOST = System.getProperty("host", "127.0.0.1");
-    static final int PORT = Integer.parseInt(System.getProperty("port", "8040"));
 
-    public static void main(String[] args) throws Exception {
+	public static void main(String[] args) throws Exception {
+		if (args.length != 2) {
+			System.err.println("用法: java EchoClient <host name> <port number>");
+			System.exit(1);
+		}
 
-        // Configure the client.
-        EventLoopGroup group = new NioEventLoopGroup();
-        try {
-            Bootstrap b = new Bootstrap();
-            b.group(group)
-             .channel(NioSocketChannel.class)
-             .option(ChannelOption.TCP_NODELAY, true)
-             .handler(new ChannelInitializer<SocketChannel>() {
-                 @Override
-                 public void initChannel(SocketChannel ch) throws Exception {
-                     ChannelPipeline p = ch.pipeline();
-                	 p.addLast("framer", new DelimiterBasedFrameDecoder(8192, Delimiters.lineDelimiter()));
-                     p.addLast("decoder", new StringDecoder());
-                     p.addLast("encoder", new StringEncoder());
-                     p.addLast(new EchoClientHandler());
-                 }
-             });
+		String hostName = args[0];
+		int portNumber = Integer.parseInt(args[1]);
 
-            // Start the client.
-            ChannelFuture f = b.connect(HOST, PORT).sync();
+		// 配置客户端
+		EventLoopGroup group = new NioEventLoopGroup();
+		try {
+			Bootstrap b = new Bootstrap();
+			b.group(group)
+			.channel(NioSocketChannel.class)
+			.option(ChannelOption.TCP_NODELAY, true)
+			.handler(new EchoClientHandler());
 
-            // Wait until the connection is closed.
-            f.channel().closeFuture().sync();
-        } finally {
-            // Shut down the event loop to terminate all threads.
-            group.shutdownGracefully();
-        }
-    }
+			// 连接到服务器
+			ChannelFuture f = b.connect(hostName, portNumber).sync();
+
+			Channel channel = f.channel();
+			ByteBuffer writeBuffer = ByteBuffer.allocate(32);
+			try (BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in))) {
+				String userInput;
+				while ((userInput = stdIn.readLine()) != null) {
+					writeBuffer.put(userInput.getBytes());
+					writeBuffer.flip();
+					writeBuffer.rewind();
+					
+					// 转为ByteBuf
+					ByteBuf buf = Unpooled.copiedBuffer(writeBuffer);
+					
+					// 写消息到管道
+					channel.writeAndFlush(buf);
+					
+					// 清理缓冲区
+					writeBuffer.clear();
+				}
+			} catch (UnknownHostException e) {
+				System.err.println("不明主机，主机名为： " + hostName);
+				System.exit(1);
+			} catch (IOException e) {
+				System.err.println("不能从主机中获取I/O，主机名为：" + hostName);
+				System.exit(1);
+			}
+		} finally {
+
+			// 优雅的关闭
+			group.shutdownGracefully();
+		}
+	}
 }
