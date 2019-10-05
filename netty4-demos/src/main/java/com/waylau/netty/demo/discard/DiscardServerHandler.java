@@ -28,10 +28,14 @@ public class DiscardServerHandler extends ChannelInboundHandlerAdapter { // (1)
 	    ByteBuf in = (ByteBuf) msg;
 	    try {
 	        while (in.isReadable()) { // (1)
+	        	
+	        	// 打印消息内容
 	            System.out.print((char) in.readByte());
 	            System.out.flush();
 	        }
 	    } finally {
+	    	
+	    	// 释放消息
 	        ReferenceCountUtil.release(msg); // (2)
 	    }
         

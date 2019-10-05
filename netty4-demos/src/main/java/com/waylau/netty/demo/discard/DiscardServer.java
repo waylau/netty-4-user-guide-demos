@@ -11,7 +11,11 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 
 /**
- * 丢弃任何进入的数据
+ * Discard Server.
+ * 丢弃任何进入的数据.
+ * 
+ * @since 1.0.0 2019年10月5日
+ * @author <a href="https://waylau.com">Way Lau</a>
  */
 public class DiscardServer {
 
