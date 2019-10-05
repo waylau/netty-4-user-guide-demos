@@ -6,7 +6,10 @@ import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.util.ReferenceCountUtil;
 
 /**
- * 处理服务端 channel.
+ * Discard Server Handler.
+ * 
+ * @since 1.0.0 2019年10月5日
+ * @author <a href="https://waylau.com">Way Lau</a>
  */
 public class DiscardServerHandler extends ChannelInboundHandlerAdapter { // (1)
 
