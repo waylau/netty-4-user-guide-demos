@@ -35,6 +35,8 @@ public class DiscardServer {
              .childHandler(new ChannelInitializer<SocketChannel>() { // (4)
                  @Override
                  public void initChannel(SocketChannel ch) throws Exception {
+                	 
+                	 // 添加ChannelHandler到ChannelPipeline
                      ch.pipeline().addLast(new DiscardServerHandler());
                  }
              })
