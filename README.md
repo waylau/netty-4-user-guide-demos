@@ -19,4 +19,5 @@ Demos of [Netty 4.x User Guide](https://github.com/waylau/netty-4-user-guide) �
 * [Netty实现时间服务器](netty4-demos/src/main/java/com/waylau/netty/demo/time)
 * [Java ByteBuffer使用案例](netty4-demos/src/main/java/com/waylau/java/demo/buffer)
 * [Netty ByteBuf使用案例](netty4-demos/src/main/java/com/waylau/netty/demo/buffer)
+* [Netty ByteBuf的三种使用模式](netty4-demos/src/main/java/com/waylau/netty/demo/buffer)
 * ...
