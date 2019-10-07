@@ -17,4 +17,6 @@ Demos of [Netty 4.x User Guide](https://github.com/waylau/netty-4-user-guide) �
 * [Netty实现Echo服务器、客户端](netty4-demos/src/main/java/com/waylau/netty/demo/echo)
 * [Netty实现丢弃服务器](netty4-demos/src/main/java/com/waylau/netty/demo/discard)
 * [Netty实现时间服务器](netty4-demos/src/main/java/com/waylau/netty/demo/time)
+* [Java ByteBuffer使用案例](netty4-demos/src/main/java/com/waylau/java/demo/buffer)
+* [Netty ByteBuf使用案例](netty4-demos/src/main/java/com/waylau/netty/demo/buffer)
 * ...
