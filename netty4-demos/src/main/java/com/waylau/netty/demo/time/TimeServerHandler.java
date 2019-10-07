@@ -6,21 +6,31 @@ import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 
+/**
+ * Time Server Handler.
+ * 
+ * @since 1.0.0 2019年10月7日
+ * @author <a href="https://waylau.com">Way Lau</a>
+ */
 public class TimeServerHandler extends ChannelInboundHandlerAdapter {
 	
 	@Override
-    public void channelActive(final ChannelHandlerContext ctx) { // (1)
-        final ByteBuf time = ctx.alloc().buffer(4); // (2)
+    public void channelActive(final ChannelHandlerContext ctx) {
+        final ByteBuf time = ctx.alloc().buffer(4);
         time.writeInt((int) (System.currentTimeMillis() / 1000L + 2208988800L));
 
-        final ChannelFuture f = ctx.writeAndFlush(time); // (3)
+        // 出站操作返回ChannelFuture
+        final ChannelFuture f = ctx.writeAndFlush(time);
+        
+        // 增加监听器
         f.addListener(new ChannelFutureListener() {
-            @Override
+
+        	// 操作完成，关闭管道
+        	@Override
             public void operationComplete(ChannelFuture future) {
-                assert f == future;
                 ctx.close();
             }
-        }); // (4)
+        });
     }
 
     @Override

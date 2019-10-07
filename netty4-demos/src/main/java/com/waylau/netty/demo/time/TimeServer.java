@@ -1,7 +1,6 @@
 package com.waylau.netty.demo.time;
 
 import io.netty.bootstrap.ServerBootstrap;
-
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelOption;
@@ -11,7 +10,10 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 
 /**
- * 时间服务器
+ * Time Server.
+ * 
+ * @since 1.0.0 2019年10月7日
+ * @author <a href="https://waylau.com">Way Lau</a>
  */
 public class TimeServer {
 
