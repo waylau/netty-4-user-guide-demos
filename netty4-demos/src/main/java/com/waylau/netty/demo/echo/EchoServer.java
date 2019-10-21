@@ -31,7 +31,7 @@ public class EchoServer {
 		EventLoopGroup workerGroup = new NioEventLoopGroup(); // worker
 		
 		try {
-			// 启动NIO服务的辅助启动类
+			// 启动NIO服务的引导程序类
 			ServerBootstrap b = new ServerBootstrap(); 
 			
 			b.group(bossGroup, workerGroup) // 设置EventLoopGroup
