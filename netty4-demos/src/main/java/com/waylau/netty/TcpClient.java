@@ -5,10 +5,10 @@ import java.io.OutputStream;
 import java.net.Socket;
 
 /**
- * 测试用的 TCP 客户端
+ * TCP Client.
  * 
- * @author waylau.com
- * @date 2015-2-26
+ * @since 1.0.0 2019年12月12日
+ * @author <a href="https://waylau.com">Way Lau</a>
  */
 public class TcpClient {
 
