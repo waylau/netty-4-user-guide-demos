@@ -39,8 +39,7 @@ public class MyClient {
 			b.handler(new ChannelInitializer<SocketChannel>() {
 				@Override
 				public void initChannel(SocketChannel ch) throws Exception {
-					ch.pipeline().addLast("decoder", new MyDecoder());
-					ch.pipeline().addLast("encoder", new MyEncoder());
+					ch.pipeline().addLast("codec", new MyCodec());
 					ch.pipeline().addLast(new MyClientHandler());
 
 				}

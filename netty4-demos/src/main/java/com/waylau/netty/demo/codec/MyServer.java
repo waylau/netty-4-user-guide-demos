@@ -32,8 +32,8 @@ public class MyServer {
 					.childHandler(new ChannelInitializer<SocketChannel>() {
 						@Override
 						public void initChannel(SocketChannel ch) throws Exception {
-							ch.pipeline().addLast("decoder", new MyDecoder());
-							ch.pipeline().addLast("encoder", new MyEncoder());
+							// 添加编解码器
+							ch.pipeline().addLast("codec", new MyCodec());
 							ch.pipeline().addLast(new MyServerHandler());
 						}
 					}).option(ChannelOption.SO_BACKLOG, 128).childOption(ChannelOption.SO_KEEPALIVE, true);

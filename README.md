@@ -26,4 +26,5 @@ Demos of [Netty 4.x User Guide](https://github.com/waylau/netty-4-user-guide) �
 * [自定义基于换行的解码器](netty4-demos/src/main/java/com/waylau/java/demo/decoder)
 * [TCP客户端](netty4-demos/src/main/java/com/waylau/java/TcpClient.java)
 * [自定义编码器](netty4-demos/src/main/java/com/waylau/java/demo/encoder)
+* [自定义编解码器](netty4-demos/src/main/java/com/waylau/java/demo/codec)
 * ...
