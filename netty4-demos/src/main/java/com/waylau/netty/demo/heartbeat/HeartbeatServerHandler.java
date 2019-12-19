@@ -9,15 +9,16 @@ import io.netty.handler.timeout.IdleState;
 import io.netty.handler.timeout.IdleStateEvent;
 import io.netty.util.CharsetUtil;
 
+
 /**
- * 说明：心跳服务器处理器
- *
- * @author <a href="http://www.waylau.com">waylau.com</a> 2015年11月6日
+ * HeartbeatServer Handler.
+ * 
+ * @since 1.0.0 2019年12月19日
+ * @author <a href="https://waylau.com">Way Lau</a>
  */
 public class HeartbeatServerHandler extends ChannelInboundHandlerAdapter {
 	
-	// Return a unreleasable view on the given ByteBuf
-	// which will just ignore release and retain calls.
+	// （1）心跳内容
 	private static final ByteBuf HEARTBEAT_SEQUENCE = Unpooled
 			.unreleasableBuffer(Unpooled.copiedBuffer("Heartbeat",
 					CharsetUtil.UTF_8));  
@@ -26,6 +27,7 @@ public class HeartbeatServerHandler extends ChannelInboundHandlerAdapter {
 	public void userEventTriggered(ChannelHandlerContext ctx, Object evt)
 			throws Exception {
 
+		// （2）判断超时类型
 		if (evt instanceof IdleStateEvent) {
 			IdleStateEvent event = (IdleStateEvent) evt;
 			String type = "";
@@ -37,6 +39,7 @@ public class HeartbeatServerHandler extends ChannelInboundHandlerAdapter {
 				type = "all idle";
 			}
 
+			// （3）发送心跳
 			ctx.writeAndFlush(HEARTBEAT_SEQUENCE.duplicate()).addListener(
 					ChannelFutureListener.CLOSE_ON_FAILURE);
  

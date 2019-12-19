@@ -8,6 +8,8 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.handler.logging.LogLevel;
+import io.netty.handler.logging.LoggingHandler;
 
 /**
  * My Server.
@@ -32,6 +34,9 @@ public class MyServer {
 					.childHandler(new ChannelInitializer<SocketChannel>() {
 						@Override
 						public void initChannel(SocketChannel ch) throws Exception {
+							// 添加日志
+							ch.pipeline().addLast("logging", new LoggingHandler(LogLevel.INFO));
+							
 							// 添加编解码器
 							ch.pipeline().addLast("codec", new MyCodec());
 							ch.pipeline().addLast(new MyServerHandler());

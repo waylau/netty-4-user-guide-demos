@@ -10,9 +10,10 @@ import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 
 /**
- * 说明：心跳服务器
- *
- * @author <a href="http://www.waylau.com">waylau.com</a> 2015年11月6日 
+ * Heartbeat Server.
+ * 
+ * @since 1.0.0 2019年12月19日
+ * @author <a href="https://waylau.com">Way Lau</a>
  */
 public final class HeartbeatServer {
 
@@ -20,7 +21,7 @@ public final class HeartbeatServer {
 
     public static void main(String[] args) throws Exception {
 
-        // Configure the server.
+        // 配置服务器
         EventLoopGroup bossGroup = new NioEventLoopGroup(1);
         EventLoopGroup workerGroup = new NioEventLoopGroup();
         try {
@@ -31,13 +32,11 @@ public final class HeartbeatServer {
              .handler(new LoggingHandler(LogLevel.INFO))
              .childHandler(new HeartbeatHandlerInitializer());
 
-            // Start the server.
+            // 启动
             ChannelFuture f = b.bind(PORT).sync();
 
-            // Wait until the server socket is closed.
             f.channel().closeFuture().sync();
         } finally {
-            // Shut down all event loops to terminate all threads.
             bossGroup.shutdownGracefully();
             workerGroup.shutdownGracefully();
         }

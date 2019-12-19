@@ -8,9 +8,10 @@ import io.netty.handler.timeout.IdleStateHandler;
 import java.util.concurrent.TimeUnit;
 
 /**
- * 说明：心跳服务器初始化
- *
- * @author <a href="http://www.waylau.com">waylau.com</a> 2015年11月6日
+ * Heartbeat Handler Initializer
+ * 
+ * @since 1.0.0 2019年12月19日
+ * @author <a href="https://waylau.com">Way Lau</a>
  */
 public class HeartbeatHandlerInitializer extends ChannelInitializer<Channel> {
 
@@ -22,7 +23,7 @@ public class HeartbeatHandlerInitializer extends ChannelInitializer<Channel> {
 	protected void initChannel(Channel ch) throws Exception {
 		ChannelPipeline pipeline = ch.pipeline();
 		pipeline.addLast(new IdleStateHandler(READ_IDEL_TIME_OUT,
-				WRITE_IDEL_TIME_OUT, ALL_IDEL_TIME_OUT, TimeUnit.SECONDS));
-		pipeline.addLast(new HeartbeatServerHandler());
+				WRITE_IDEL_TIME_OUT, ALL_IDEL_TIME_OUT, TimeUnit.SECONDS)); // （1）
+		pipeline.addLast(new HeartbeatServerHandler()); // （2）
 	}
 }
