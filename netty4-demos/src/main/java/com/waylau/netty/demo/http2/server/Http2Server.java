@@ -1,4 +1,4 @@
-package com.waylau.netty.demo.httpserver;
+package com.waylau.netty.demo.http2.server;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
@@ -8,12 +8,12 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 
 /**
- * HTTP Server.
+ * HTTP/2 Server.
  * 
- * @since 1.0.0 2019年12月26日
+ * @since 1.0.0 2019年12月29日
  * @author <a href="https://waylau.com">Way Lau</a>
  */
-public class HttpServer {
+public class Http2Server {
 
 	public static int DEFAULT_PORT = 8080;
 
@@ -36,14 +36,14 @@ public class HttpServer {
 			
 			b.group(bossGroup, workerGroup) // 设置EventLoopGroup
 			.channel(NioServerSocketChannel.class) // 指明新的Channel的类型
-			.childHandler(new HttpServerChannelInitializer()) // 指定ChannelHandler
+			.childHandler(new Http2ServerInitializer()) // 指定ChannelHandler
 			.option(ChannelOption.SO_BACKLOG, 128) // 设置的ServerChannel的一些选项
 			.childOption(ChannelOption.SO_KEEPALIVE, true); // 设置的ServerChannel的子Channel的选项
  
 			// 绑定端口，开始接收进来的连接
 			ChannelFuture f = b.bind(port).sync(); 
 
-			System.out.println("HttpServer已启动，端口：" + port);
+			System.out.println("HTTP/2服务器已启动，端口：" + port);
 
 			// 等待服务器 socket 关闭 。
 			// 在这个例子中，这不会发生，但你可以优雅地关闭你的服务器。
