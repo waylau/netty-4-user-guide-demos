@@ -9,16 +9,16 @@ import io.netty.handler.codec.http.websocketx.WebSocketServerProtocolHandler;
 import io.netty.handler.stream.ChunkedWriteHandler;
 
 /**
- * 服务端 ChannelInitializer
+ * WebSocketChatServer ChannelInitializer.
  * 
- * @author waylau.com
- * @date 2015-3-13
+ * @since 1.0.0 2020年1月1日
+ * @author <a href="https://waylau.com">Way Lau</a>
  */
-public class WebsocketChatServerInitializer extends
-		ChannelInitializer<SocketChannel> {	//1
+public class WebSocketChatServerInitializer extends
+		ChannelInitializer<SocketChannel> {	//（1）
 
 	@Override
-    public void initChannel(SocketChannel ch) throws Exception {//2
+    public void initChannel(SocketChannel ch) throws Exception {//（2）
 		 ChannelPipeline pipeline = ch.pipeline();
 
         pipeline.addLast(new HttpServerCodec());

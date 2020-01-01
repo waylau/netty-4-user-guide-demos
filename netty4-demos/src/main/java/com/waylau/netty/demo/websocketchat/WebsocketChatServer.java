@@ -8,28 +8,28 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 
 /**
- * Websocket 聊天服务器-服务端
+ * WebSocket Chat Server.
  * 
- * @author waylau.com
- * @date 2015-3-7
+ * @since 1.0.0 2020年1月1日
+ * @author <a href="https://waylau.com">Way Lau</a>
  */
-public class WebsocketChatServer {
+public class WebSocketChatServer {
 
     private int port;
 
-    public WebsocketChatServer(int port) {
+    public WebSocketChatServer(int port) {
         this.port = port;
     }
 
     public void run() throws Exception {
         
-        EventLoopGroup bossGroup = new NioEventLoopGroup(); // (1)
+        EventLoopGroup bossGroup = new NioEventLoopGroup(1); // (1)
         EventLoopGroup workerGroup = new NioEventLoopGroup();
         try {
             ServerBootstrap b = new ServerBootstrap(); // (2)
             b.group(bossGroup, workerGroup)
              .channel(NioServerSocketChannel.class) // (3)
-             .childHandler(new WebsocketChatServerInitializer())  //(4)
+             .childHandler(new WebSocketChatServerInitializer())  //(4)
              .option(ChannelOption.SO_BACKLOG, 128)          // (5)
              .childOption(ChannelOption.SO_KEEPALIVE, true); // (6)
             
@@ -57,7 +57,7 @@ public class WebsocketChatServer {
         } else {
             port = 8080;
         }
-        new WebsocketChatServer(port).run();
+        new WebSocketChatServer(port).run();
 
     }
 }
