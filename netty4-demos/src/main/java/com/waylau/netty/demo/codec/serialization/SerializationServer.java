@@ -9,10 +9,12 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 
+
 /**
- * 说明：序列化服务器
- *
- * @author <a href="http://www.waylau.com">waylau.com</a> 2015年11月6日 
+ * Serialization Server.
+ * 
+ * @since 1.0.0 2020年1月2日
+ * @author <a href="https://waylau.com">Way Lau</a>
  */
 public final class SerializationServer {
 
@@ -30,7 +32,7 @@ public final class SerializationServer {
              .option(ChannelOption.SO_BACKLOG, 100)
              .childOption(ChannelOption.SO_KEEPALIVE, true)
              .handler(new LoggingHandler(LogLevel.INFO))
-             .childHandler(new SerializationServerHandlerInitializer());
+             .childHandler(new SerializationServerInitializer());
 
             // Start the server.
             ChannelFuture f = b.bind(PORT).sync();

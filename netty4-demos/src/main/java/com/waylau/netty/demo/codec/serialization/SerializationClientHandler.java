@@ -7,9 +7,10 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 
 /**
- * 说明：处理器
- *
- * @author <a href="http://www.waylau.com">waylau.com</a> 2015年11月7日
+ * SerializationClient Handler.
+ * 
+ * @since 1.0.0 2020年1月2日
+ * @author <a href="https://waylau.com">Way Lau</a>
  */
 public class SerializationClientHandler extends
 		SimpleChannelInboundHandler<Object> {
@@ -19,8 +20,7 @@ public class SerializationClientHandler extends
 			throws Exception {
 		if (obj instanceof SerializationBean) {
 			SerializationBean user = (SerializationBean) obj;
-			System.out.println("Client get msg form Server - name:"
-					+ user.getName() + ";age:" + user.getAge());
+			System.out.println("Server -> Client: " + user);
 		}
 
 	}

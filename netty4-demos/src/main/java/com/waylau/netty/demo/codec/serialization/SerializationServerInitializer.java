@@ -8,12 +8,12 @@ import io.netty.handler.codec.serialization.ObjectDecoder;
 import io.netty.handler.codec.serialization.ObjectEncoder;
 
 /**
- * 说明：序列化服务器初始化
- *
- * @author <a href="http://www.waylau.com">waylau.com</a> 2015年11月6日
+ * SerializationServer ChannelInitializer.
+ * 
+ * @since 1.0.0 2020年1月2日
+ * @author <a href="https://waylau.com">Way Lau</a>
  */
-public class SerializationServerHandlerInitializer extends
-		ChannelInitializer<Channel> {
+public class SerializationServerInitializer extends ChannelInitializer<Channel> {
 
 	private final static int MAX_OBJECT_SIZE = 1024 * 1024;
 
