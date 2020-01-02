@@ -5,14 +5,14 @@ import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
 
 /**
- * 说明：处理器初始化
- *
- * @author <a href="http://www.waylau.com">waylau.com</a> 2015年11月6日
+ * JacksonClient ChannelInitializer.
+ * 
+ * @since 1.0.0 2020年1月2日
+ * @author <a href="https://waylau.com">Way Lau</a>
  */
-public class JacksonClientHandlerInitializer extends
+public class JacksonClientInitializer extends
 		ChannelInitializer<Channel> {
  
-
 	@Override
 	protected void initChannel(Channel ch) throws Exception {
 		ChannelPipeline pipeline = ch.pipeline();

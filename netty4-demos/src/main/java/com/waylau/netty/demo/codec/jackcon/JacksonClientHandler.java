@@ -1,15 +1,13 @@
-/**
- * 
- */
 package com.waylau.netty.demo.codec.jackcon;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 
 /**
- * 说明：处理器
- *
- * @author <a href="http://www.waylau.com">waylau.com</a> 2015年11月7日
+ * JacksonClient Handler.
+ * 
+ * @since 1.0.0 2020年1月2日
+ * @author <a href="https://waylau.com">Way Lau</a>
  */
 public class JacksonClientHandler extends
 		SimpleChannelInboundHandler<Object> {
@@ -20,12 +18,9 @@ public class JacksonClientHandler extends
 		String jsonString = "";
 		if (obj instanceof JacksonBean) {
 			JacksonBean user = (JacksonBean) obj;
-			
 			jsonString = JacksonMapper.getInstance().writeValueAsString(user); // 对象转为json字符串
-		} else {
-			jsonString = JacksonMapper.getInstance().writeValueAsString(obj); // 对象转为json字符串
+			System.out.println("Server -> Client: " + jsonString);
 		}
-		System.out.println("Client get msg form Server -" + jsonString);
 	}
 
 }

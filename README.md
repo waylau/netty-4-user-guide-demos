@@ -29,6 +29,7 @@ Demos of [Netty 4.x User Guide](https://github.com/waylau/netty-4-user-guide) �
 * [自定义编解码器](netty4-demos/src/main/java/com/waylau/java/demo/codec)
 * [实现心跳机制](netty4-demos/src/main/java/com/waylau/java/demo/heartbeat)
 * [基于Netty的对象序列化](netty4-demos/src/main/java/com/waylau/java/demo/codec/serialization)
+* [基于Jackson的JSON序列化](netty4-demos/src/main/java/com/waylau/java/demo/codec/jackcon)
 * [基于SSL/TSL的双向认证Echo服务器和客户端](netty4-demos/src/main/java/com/waylau/java/demo/secureecho)
 * [基于HTTP的Web服务器](netty4-demos/src/main/java/com/waylau/java/demo/httpserver)
 * [基于HTTP/2的Web服务器和客户端](netty4-demos/src/main/java/com/waylau/java/demo/http2)

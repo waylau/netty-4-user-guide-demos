@@ -13,9 +13,10 @@ import io.netty.channel.socket.nio.NioSocketChannel;
 
 
 /**
- * 说明：Jackson json-客户端
- *
- * @author <a href="http://www.waylau.com">waylau.com</a> 2015年11月7日 
+ * Jackson Client.
+ * 
+ * @since 1.0.0 2020年1月2日
+ * @author <a href="https://waylau.com">Way Lau</a>
  */
 public class JacksonClient {
 
@@ -37,7 +38,7 @@ public class JacksonClient {
             Bootstrap bootstrap  = new Bootstrap()
                     .group(group)
                     .channel(NioSocketChannel.class)
-		            .handler(new JacksonClientHandlerInitializer());
+		            .handler(new JacksonClientInitializer());
             
             Channel channel = bootstrap.connect(host, port).sync().channel();
 
