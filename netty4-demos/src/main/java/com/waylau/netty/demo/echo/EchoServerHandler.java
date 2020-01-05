@@ -21,7 +21,7 @@ public class EchoServerHandler extends ChannelInboundHandlerAdapter {
 		
 		// 上面两个方法等同于 ctx.writeAndFlush(buf);
 	}
-
+	
 	@Override
 	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
 
