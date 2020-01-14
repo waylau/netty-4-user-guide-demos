@@ -5,7 +5,8 @@ Demos of [Netty 4.x User Guide](https://github.com/waylau/netty-4-user-guide) �
 
 涉及的相关技术及版本如下。
 
-* Netty 4.1.44.Final
+* Netty 4.1.45.Final
+* Jackson 2.10.1
 * JUnit 5.5.2
 
 包含示例如下：
