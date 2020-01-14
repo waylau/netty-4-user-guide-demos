@@ -17,9 +17,9 @@ public class EchoServerHandler extends ChannelInboundHandlerAdapter {
 		
 		// 写消息到管道
 		ctx.write(msg);// 写消息
-		ctx.flush(); // 刷新消息
+		ctx.flush(); // 冲刷消息
 		
-		// 上面两个方法等同于 ctx.writeAndFlush(buf);
+		// 上面两个方法等同于 ctx.writeAndFlush(msg);
 	}
 	
 	@Override
