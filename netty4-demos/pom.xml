@@ -15,7 +15,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>${maven.compiler.source}</maven.compiler.target>
-		<netty-all.version>4.1.49.Final</netty-all.version>
+		<netty-all.version>4.1.52.Final</netty-all.version>
 		<jackson.core.version>2.10.1</jackson.core.version>
 		<junit.jupiter.version>5.5.2</junit.jupiter.version>
 	</properties>

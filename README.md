@@ -5,7 +5,7 @@ Demos of [Netty 4.x User Guide](https://github.com/waylau/netty-4-user-guide) �
 
 涉及的相关技术及版本如下。
 
-* Netty 4.1.49.Final
+* Netty 4.1.52.Final
 * Jackson 2.10.1
 * JUnit 5.5.2
 
@@ -34,4 +34,6 @@ Demos of [Netty 4.x User Guide](https://github.com/waylau/netty-4-user-guide) �
 * [基于HTTP的Web服务器](netty4-demos/src/main/java/com/waylau/java/demo/httpserver)
 * [基于HTTP/2的Web服务器和客户端](netty4-demos/src/main/java/com/waylau/java/demo/http2)
 * [基于WebSocket的聊天室](netty4-demos/src/main/java/com/waylau/java/demo/websocketchat)
+* [lite-monitoring](https://github.com/waylau/lite-monitoring)
+* [lite-monitoring-ui](https://github.com/waylau/lite-monitoring-ui)
 * 陆续整理中...
