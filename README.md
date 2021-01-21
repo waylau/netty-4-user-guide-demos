@@ -1,13 +1,18 @@
 # Netty demos. （Netty 案例大全）
 
-Demos of [Netty 4.x User Guide](https://github.com/waylau/netty-4-user-guide) 《Netty 4.x 用户指南》中文翻译，文中用到的例子源码。
+Demos of [Netty 4.x User Guide](https://github.com/waylau/netty-4-user-guide) 《Netty 4.x 用户指南》/《Netty原理解析与开发实战》，文中用到的例子源码。
 
+
+## 版本
 
 涉及的相关技术及版本如下。
 
 * Netty 4.1.52.Final
 * Jackson 2.10.1
 * JUnit 5.5.2
+
+
+## 示例
 
 包含示例如下：
 
@@ -37,3 +42,8 @@ Demos of [Netty 4.x User Guide](https://github.com/waylau/netty-4-user-guide) �
 * [lite-monitoring](https://github.com/waylau/lite-monitoring)
 * [lite-monitoring-ui](https://github.com/waylau/lite-monitoring-ui)
 * 陆续整理中...
+
+## 配套书籍
+
+* 开源书《[Netty 4.x User Guide](https://github.com/waylau/netty-4-user-guide)》
+* 正式出版物《[Netty原理解析与开发实战](https://book.douban.com/subject/35317298/)》
